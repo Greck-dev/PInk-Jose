@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flores Amarillas 🌼</title>
+
+<style>
+:root{
+  --cielo1:#080B12;
+  --cielo2:#111827;
+  --cielo3:#321D2A;
+
+  --amarillo:#FFD83D;
+  --amarillo2:#FFE98A;
+  --centro:#9A6418;
+
+  --verde:#334532;
+  --verde2:#4A6242;
+
+  --texto:#FFF8DF;
+  --texto2:#D9CCAD;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  overflow:hidden;
+  background:#080B12;
+  font-family:Georgia, 'Times New Roman', serif;
+}
+
+#escena{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at 50% 35%,
+      rgba(255,210,100,.08),
+      transparent 30%),
+
+    radial-gradient(circle at 80% 20%,
+      rgba(122,76,110,.10),
+      transparent 30%),
+
+    linear-gradient(
+      180deg,
+      var(--cielo1) 0%,
+      var(--cielo2) 55%,
+      var(--cielo3) 100%
+    );
+}
+
+.luna{
+  position:absolute;
+  width:95px;
+  height:95px;
+  border-radius:50%;
+
+  top:9%;
+  right:12%;
+
+  background:#FFF5C7;
+
+  box-shadow:
+    0 0 25px rgba(255,240,180,.35),
+    0 0 70px rgba(255,220,120,.12);
+
+  opacity:.85;
+}
+
+.luna::after{
+  content:"";
+  position:absolute;
+  width:95px;
+  height:95px;
+  border-radius:50%;
+
+  left:25px;
+  top:-8px;
+
+  background:var(--cielo1);
+}
+
+.brillo{
+  position:absolute;
+  left:50%;
+  top:42%;
+
+  width:500px;
+  height:300px;
+
+  transform:translate(-50%,-50%);
+
+  background:radial-gradient(
+    ellipse,
+    rgba(255,211,80,.08),
+    transparent 70%
+  );
+
+  filter:blur(10px);
+}
+
+.contenido{
+  position:absolute;
+  z-index:50;
+
+  left:50%;
+  top:39%;
+
+  transform:translate(-50%,-50%);
+
+  width:min(90%,700px);
+
+  text-align:center;
+
+  color:var(--texto);
+
+  animation:aparecer 2s ease forwards;
+}
+
+.fecha{
+  font-size:clamp(13px,2vw,17px);
+  letter-spacing:3px;
+
+  color:var(--amarillo2);
+
+  margin-bottom:14px;
+
+  text-transform:uppercase;
+
+  text-shadow:0 0 12px rgba(255,220,100,.25);
+}
+
+h1{
+  font-size:clamp(35px,6vw,65px);
+  font-weight:500;
+
+  margin-bottom:12px;
+
+  color:#FFF9DD;
+
+  text-shadow:
+    0 0 12px rgba(255,215,70,.18),
+    0 0 35px rgba(255,190,60,.08);
+}
+
+.nombre{
+  font-size:clamp(20px,3vw,28px);
+
+  color:var(--amarillo);
+
+  margin-bottom:20px;
+
+  font-style:italic;
+}
+
+.mensaje{
+  max-width:550px;
+
+  margin:auto;
+
+  font-size:clamp(16px,2.2vw,21px);
+
+  line-height:1.8;
+
+  color:var(--texto2);
+
+  text-shadow:0 2px 8px rgba(0,0,0,.7);
+}
+
+.corazon{
+  display:inline-block;
+
+  margin-top:15px;
+
+  font-size:22px;
+
+  color:#FFD95A;
+
+  animation:pulso 2s ease-in-out infinite;
+}
+
+.suelo{
+  position:absolute;
+
+  z-index:10;
+
+  bottom:-70px;
+  left:-5%;
+
+  width:110%;
+
+  height:180px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #4A6242 0%,
+      #334532 45%,
+      #202D25 100%
+    );
+
+  border-radius:50% 50% 0 0;
+}
+
+.flor{
+  position:absolute;
+
+  z-index:20;
+
+  bottom:70px;
+
+  width:70px;
+  height:240px;
+
+  transform-origin:bottom center;
+
+  animation:viento ease-in-out infinite alternate;
+}
+
+.tallo{
+  position:absolute;
+
+  bottom:0;
+  left:50%;
+
+  width:5px;
+  height:185px;
+
+  transform:translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      #263D2B,
+      #536B48,
+      #263D2B
+    );
+
+  border-radius:10px;
+}
+
+.hoja{
+  position:absolute;
+
+  width:38px;
+  height:18px;
+
+  background:#4A6242;
+
+  border-radius:100% 0 100% 0;
+}
+
+.hoja1{
+  left:12px;
+  bottom:75px;
+
+  transform:rotate(-25deg);
+}
+
+.hoja2{
+  right:8px;
+  bottom:115px;
+
+  transform:rotate(25deg) scaleX(-1);
+}
+
+.cabeza{
+  position:absolute;
+
+  top:0;
+  left:50%;
+
+  width:64px;
+  height:64px;
+
+  transform:translateX(-50%);
+
+  animation:florRespira 3s ease-in-out infinite;
+}
+
+.petalo{
+  position:absolute;
+
+  width:29px;
+  height:40px;
+
+  left:50%;
+  top:50%;
+
+  transform-origin:50% 90%;
+
+  background:
+    radial-gradient(
+      circle at 50% 80%,
+      #FFE98A,
+      var(--amarillo) 65%,
+      #E9B928 100%
+    );
+
+  border-radius:50% 50% 45% 45%;
+
+  box-shadow:
+    0 0 8px rgba(255,215,60,.18);
+}
+
+.petalo:nth-child(1){
+  transform:translate(-50%,-90%) rotate(0deg);
+}
+
+.petalo:nth-child(2){
+  transform:translate(-50%,-90%) rotate(36deg);
+}
+
+.petalo:nth-child(3){
+  transform:translate(-50%,-90%) rotate(72deg);
+}
+
+.petalo:nth-child(4){
+  transform:translate(-50%,-90%) rotate(108deg);
+}
+
+.petalo:nth-child(5){
+  transform:translate(-50%,-90%) rotate(144deg);
+}
+
+.petalo:nth-child(6){
+  transform:translate(-50%,-90%) rotate(180deg);
+}
+
+.petalo:nth-child(7){
+  transform:translate(-50%,-90%) rotate(216deg);
+}
+
+.petalo:nth-child(8){
+  transform:translate(-50%,-90%) rotate(252deg);
+}
+
+.petalo:nth-child(9){
+  transform:translate(-50%,-90%) rotate(288deg);
+}
+
+.petalo:nth-child(10){
+  transform:translate(-50%,-90%) rotate(324deg);
+}
+
+.centro{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:25px;
+  height:25px;
+
+  transform:translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #D69A2C,
+      var(--centro) 70%
+    );
+
+  box-shadow:
+    0 0 8px rgba(140,80,10,.5);
+}
+
+.petalo-caida{
+  position:absolute;
+
+  z-index:35;
+
+  top:-50px;
+
+  color:var(--amarillo);
+
+  font-size:18px;
+
+  opacity:.7;
+
+  animation:caer linear infinite;
+}
+
+.luz{
+  position:absolute;
+
+  z-index:25;
+
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+  background:#FFE98A;
+
+  box-shadow:
+    0 0 7px #FFE98A,
+    0 0 18px rgba(255,220,100,.7);
+
+  animation:brillar ease-in-out infinite;
+}
+
+@keyframes viento{
+  from{
+    transform:rotate(-2deg);
+  }
+
+  to{
+    transform:rotate(3deg);
+  }
+}
+
+@keyframes florRespira{
+  0%,100%{
+    transform:translateX(-50%) scale(1);
+  }
+
+  50%{
+    transform:translateX(-50%) scale(1.04);
+  }
+}
+
+@keyframes caer{
+  0%{
+    transform:
+      translateY(-50px)
+      translateX(0)
+      rotate(0deg);
+  }
+
+  50%{
+    transform:
+      translateY(55vh)
+      translateX(45px)
+      rotate(180deg);
+  }
+
+  100%{
+    transform:
+      translateY(110vh)
+      translateX(-30px)
+      rotate(360deg);
+  }
+}
+
+@keyframes brillar{
+  0%,100%{
+    opacity:.15;
+    transform:scale(.7);
+  }
+
+  50%{
+    opacity:1;
+    transform:scale(1.5);
+  }
+}
+
+@keyframes pulso{
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.2);
+  }
+}
+
+@keyframes aparecer{
+  from{
+    opacity:0;
+    transform:translate(-50%,-45%);
+  }
+
+  to{
+    opacity:1;
+    transform:translate(-50%,-50%);
+  }
+}
+
+@media(max-width:600px){
+
+  .luna{
+    width:65px;
+    height:65px;
+    right:8%;
+  }
+
+  .luna::after{
+    width:65px;
+    height:65px;
+    left:18px;
+  }
+
+  .contenido{
+    top:36%;
+  }
+
+  .mensaje{
+    padding:0 15px;
+    line-height:1.7;
+  }
+
+  .flor:nth-child(n+18){
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="escena">
+
+  <div class="luna"></div>
+  <div class="brillo"></div>
+
+  <div class="contenido">
+
+    <div class="fecha">
+      21 de setiembre · Día de las Flores Amarillas
+    </div>
+
+    <h1>Para Jose </h1>
+
+    <div class="nombre">
+      🌌
+    </div>
+
+    <div class="mensaje">
+       Que todo lo bonito llegue a tu vida esta primavera..<br>
+
+      Una nueva estación, nuevas historias por vivir..<br>
+
+      "💙 🌌 "Hay días que pasan, y otros que se quedan; como aquel 7 de diciembre."".<br>
+
+     
+      
+      <div class="corazon">🤍</div>
+    </div>
+
+  </div>
+
+  <div class="suelo" id="campo"></div>
+
+</div>
+
+<script>
+
+const campo = document.getElementById("campo");
+
+function crearFlor(){
+
+  const flor = document.createElement("div");
+  flor.className = "flor";
+
+  const tamano =
+    45 + Math.random() * 30;
+
+  const altura =
+    150 + Math.random() * 120;
+
+  flor.style.left =
+    Math.random() * 100 + "%";
+
+  flor.style.bottom =
+    45 + Math.random() * 60 + "px";
+
+  flor.style.height =
+    altura + "px";
+
+  flor.style.width =
+    tamano + "px";
+
+  flor.style.animationDuration =
+    (2.5 + Math.random() * 3) + "s";
+
+  flor.style.animationDelay =
+    (Math.random() * 2) + "s";
+
+  const tallo = document.createElement("div");
+  tallo.className = "tallo";
+
+  tallo.style.height =
+    (altura - 30) + "px";
+
+  flor.appendChild(tallo);
+
+  const hoja1 = document.createElement("div");
+  hoja1.className = "hoja hoja1";
+
+  const hoja2 = document.createElement("div");
+  hoja2.className = "hoja hoja2";
+
+  flor.appendChild(hoja1);
+  flor.appendChild(hoja2);
+
+  const cabeza = document.createElement("div");
+  cabeza.className = "cabeza";
+
+  const cantidadPetalos = 10;
+
+  for(let i=0;i<cantidadPetalos;i++){
+
+    const petalo =
+      document.createElement("div");
+
+    petalo.className = "petalo";
+
+    cabeza.appendChild(petalo);
+  }
+
+  const centro =
+    document.createElement("div");
+
+  centro.className = "centro";
+
+  cabeza.appendChild(centro);
+
+  flor.appendChild(cabeza);
+
+  campo.appendChild(flor);
+}
+
+
+for(let i=0;i<38;i++){
+  crearFlor();
+}
+
+
+for(let i=0;i<28;i++){
+
+  const petalo =
+    document.createElement("div");
+
+  petalo.className =
+    "petalo-caida";
+
+  petalo.textContent =
+    Math.random() > .5 ? "🌼" : "🌻";
+
+  petalo.style.left =
+    Math.random() * 100 + "%";
+
+  petalo.style.fontSize =
+    (10 + Math.random()*14) + "px";
+
+  petalo.style.animationDuration =
+    (7 + Math.random()*8) + "s";
+
+  petalo.style.animationDelay =
+    (Math.random()*8) + "s";
+
+  document
+    .getElementById("escena")
+    .appendChild(petalo);
+}
+
+
+for(let i=0;i<32;i++){
+
+  const luz =
+    document.createElement("div");
+
+  luz.className = "luz";
+
+  luz.style.left =
+    Math.random()*100 + "%";
+
+  luz.style.top =
+    15 + Math.random()*65 + "%";
+
+  luz.style.animationDuration =
+    (2 + Math.random()*3) + "s";
+
+  luz.style.animationDelay =
+    Math.random()*4 + "s";
+
+  document
+    .getElementById("escena")
+    .appendChild(luz);
+}
+
+</script>
+
+</body>
+</html>
